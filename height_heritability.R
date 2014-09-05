@@ -5,7 +5,6 @@ head(dat)
 ## drop males because only 2 outliers exist
 dat = dat[dat$Sex == 'F', ]
 
-indep_vars = c('mom.height', 'dad.height', 'mid.parent')
 mods = vector('list', 3)
 h2 = se = rep(NA, 3)
 
