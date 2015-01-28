@@ -1,6 +1,11 @@
 
-dat = read.csv('./height_211_2014.csv')
-head(dat)
+dat1 = read.csv('./height_211_2014.csv')
+dat1$year = 2014
+dat2 = read.csv('./height_211_2015.csv')
+dat2$year = 2015
+head(dat1)
+head(dat2)
+dat = rbind(dat1, dat2)
 
 ## drop males because only 2 outliers exist
 dat = dat[dat$Sex == 'F', ]
