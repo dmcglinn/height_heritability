@@ -42,7 +42,8 @@ abline(h=0, lty=2)
 axis(side=1, at = 1:3, labels = c('mom', 'dad', 'avg'))
 axis(side=2)
 
-par(mfrow=c(1,3))
+pdf('./class_heights.pdf')
+par(mfrow=c(1,1))
 hist(dat$offspring.height, main='', xlab='Offspring Height (ft)')
 plot(offspring.height ~ mid.parent, data=dat, frame.plot=F)
 abline(mods[[3]])
@@ -52,4 +53,4 @@ arrows(1, h2[3] - 1.96 * se[3],
        1, h2[3] + 1.96 * se[3], code=3, angle=90, length=.1 )
 abline(h=0, lty=2)
 axis(side=2)
-
+dev.off()
