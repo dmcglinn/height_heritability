@@ -1,36 +1,60 @@
 
 dat = read.csv('height_211.csv')
-dat = subset(dat, subset = paste(dat$semester, dat$year) != 'fall 2015')
-
-## drop males because only 2 outliers exist
-dat = dat[dat$Sex == 'F', ]
 
 mod1 = lm(offspring.height ~ mid.parent, data=dat)
 mod2 = update(mod1, . ~ . + Sex)
+mod3 = lm(offspring.height ~ dad.height + mom.height + Sex, data=dat)
 
 pdf('./height_midparent.pdf')
 par(mfrow=c(1,1))
-hist(dat$offspring.height[dat$semester=='fall' & dat$year ==2015],
-     xlab='Student Heights (in)', main='')
+hist(dat$offspring.height[dat$semester=='fall' & dat$year ==2016],
+     xlab='Student Heights (in)', main='Fall 2016')
 ylims = range(dat$offspring.height)
-xlims = range(dat$mid.parent)
-plot(offspring.height ~ mid.parent, data=dat, subset=semester=='fall' & year==2015,
-     pch=19, xlim=xlims, ylim=ylims)
-abline(lm(offspring.height ~ mid.parent, data=dat, subset=semester=='fall' & year==2015))
+xlims = range(dat$mid.parent, na.rm=T)
+plot(offspring.height ~ mid.parent, data=dat, subset=semester=='fall' & year==2016,
+     pch=19, xlim=xlims, ylim=ylims, main='Fall 2016')
+abline(lm(offspring.height ~ mid.parent, data=dat, subset=semester=='fall' & year==2016))
 ###
-plot(offspring.height ~ mid.parent, data=dat, pch=19, xlim=xlims, ylim=ylims)
+plot(offspring.height ~ mid.parent, data=dat, pch=19, xlim=xlims, ylim=ylims,
+     main='Fall 2014-Fall 2016')
 abline(lm(offspring.height ~ mid.parent, data=dat))
 ###
-plot(offspring.height ~ mid.parent, data=dat, type='n', xlim=xlims, ylim=ylims)
+plot(offspring.height ~ mid.parent, data=dat, type='n', xlim=xlims, ylim=ylims,
+     main='Fall 2014-Fall 2016')
 points(offspring.height ~ mid.parent, data=dat, subset=Sex=='M', col='dodgerblue',
        pch=19)
-points(offspring.height ~ mid.parent, data=dat, subset=Sex=='F', col='pink',
+points(offspring.height ~ mid.parent, data=dat, subset=Sex=='F', col='red',
        pch=19)
 abline(lm(offspring.height ~ mid.parent, data=dat, subset=Sex=='M'), 
        col='dodgerblue')
 abline(lm(offspring.height ~ mid.parent, data=dat, subset=Sex=='F'), 
-       col='pink')
-legend('topleft', c('Males', 'Females'), col=c('dodgerblue','pink'), pch=19,bty='n')
+       col='red')
+legend('topleft', c('Males', 'Females'), col=c('dodgerblue','red'), pch=19,bty='n')
+##
+plot(offspring.height ~ dad.height, data=dat, type='n', xlim=xlims, ylim=ylims,
+     main='Fall 2014-Fall 2016')
+points(offspring.height ~ dad.height, data=dat, subset=Sex=='M', col='dodgerblue',
+       pch=19)
+points(offspring.height ~ dad.height, data=dat, subset=Sex=='F', col='red',
+       pch=19)
+abline(lm(offspring.height ~ dad.height, data=dat, subset=Sex=='M'), 
+       col='dodgerblue')
+abline(lm(offspring.height ~ dad.height, data=dat, subset=Sex=='F'), 
+       col='red')
+legend('topleft', c('Males', 'Females'), col=c('dodgerblue','red'), pch=19,bty='n')
+##
+plot(offspring.height ~ mom.height, data=dat, type='n', xlim=xlims, ylim=ylims,
+     main='Fall 2014-Fall 2016')
+points(offspring.height ~ mom.height, data=dat, subset=Sex=='M', col='dodgerblue',
+       pch=19)
+points(offspring.height ~ mom.height, data=dat, subset=Sex=='F', col='red',
+       pch=19)
+abline(lm(offspring.height ~ mom.height, data=dat, subset=Sex=='M'), 
+       col='dodgerblue')
+abline(lm(offspring.height ~ mom.height, data=dat, subset=Sex=='F'), 
+       col='red')
+legend('topleft', c('Males', 'Females'), col=c('dodgerblue','red'), pch=19,bty='n')
+
 dev.off()
 
 mods = vector('list', 3)
@@ -48,7 +72,7 @@ for(i in 1:3) {
 xmin = min(h2 - 1.96 * se)
 xmax = max(h2 + 1.96 * se)
 
-pdf('./hereitablity_estimate.pdf')
+pdf('./heritablity_estimate.pdf')
 cols= c('black','pink','dodgerblue')
 par(mfrow=c(1,1))
 plot(h2, 3:1, xlim=c(xmin, xmax), frame.plot=F, axes=F,
