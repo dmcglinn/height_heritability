@@ -73,7 +73,7 @@ xmin = min(h2 - 1.96 * se)
 xmax = max(h2 + 1.96 * se)
 
 pdf('./heritablity_estimate.pdf')
-cols= c('black','pink','dodgerblue')
+cols= c('black','red','dodgerblue')
 par(mfrow=c(1,1))
 plot(h2, 3:1, xlim=c(xmin, xmax), frame.plot=F, axes=F,
      ylab='Sex', xlab='Heritability (h^2)', pch=19,
