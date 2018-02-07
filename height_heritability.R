@@ -7,20 +7,20 @@ mod3 = lm(offspring.height ~ dad.height + mom.height + Sex, data=dat)
 
 pdf('./height_midparent.pdf')
 par(mfrow=c(1,1))
-hist(dat$offspring.height[dat$semester=='fall' & dat$year ==2017],
-     xlab='Student Heights (in)', main='Fall 2017')
+hist(dat$offspring.height[dat$semester=='spring' & dat$year ==2018],
+     xlab='Student Heights (in)', main='Spring 2018')
 ylims = range(dat$offspring.height)
 xlims = range(dat$mid.parent, na.rm=T)
-plot(offspring.height ~ mid.parent, data=dat, subset=semester=='fall' & year==2017,
-     pch=19, xlim=xlims, ylim=ylims, main='Fall 2017')
-abline(lm(offspring.height ~ mid.parent, data=dat, subset=semester=='fall' & year==2017))
+plot(offspring.height ~ mid.parent, data=dat, subset=semester=='spring' & year==2018,
+     pch=19, xlim=xlims, ylim=ylims, main='Spring 2018')
+abline(lm(offspring.height ~ mid.parent, data=dat, subset=semester=='spring' & year==2018))
 ###
 plot(offspring.height ~ mid.parent, data=dat, pch=19, xlim=xlims, ylim=ylims,
-     main='Fall 2014-Fall 2017')
+     main='Fall 2014-Spring 2018')
 abline(lm(offspring.height ~ mid.parent, data=dat))
 ###
 plot(offspring.height ~ mid.parent, data=dat, type='n', xlim=xlims, ylim=ylims,
-     main='Fall 2014-Fall 2017')
+     main='Fall 2014-Spring 2018')
 points(offspring.height ~ mid.parent, data=dat, subset=Sex=='M', col='dodgerblue',
        pch=19)
 points(offspring.height ~ mid.parent, data=dat, subset=Sex=='F', col='red',
@@ -32,7 +32,7 @@ abline(lm(offspring.height ~ mid.parent, data=dat, subset=Sex=='F'),
 legend('topleft', c('Males', 'Females'), col=c('dodgerblue','red'), pch=19,bty='n')
 ##
 plot(offspring.height ~ dad.height, data=dat, type='n', xlim=xlims, ylim=ylims,
-     main='Fall 2014-Fall 2017')
+     main='Fall 2014-Spring 2018')
 points(offspring.height ~ dad.height, data=dat, subset=Sex=='M', col='dodgerblue',
        pch=19)
 points(offspring.height ~ dad.height, data=dat, subset=Sex=='F', col='red',
@@ -44,7 +44,7 @@ abline(lm(offspring.height ~ dad.height, data=dat, subset=Sex=='F'),
 legend('topleft', c('Males', 'Females'), col=c('dodgerblue','red'), pch=19,bty='n')
 ##
 plot(offspring.height ~ mom.height, data=dat, type='n', xlim=xlims, ylim=ylims,
-     main='Fall 2014-Fall 2017')
+     main='Fall 2014-Spring 2018')
 points(offspring.height ~ mom.height, data=dat, subset=Sex=='M', col='dodgerblue',
        pch=19)
 points(offspring.height ~ mom.height, data=dat, subset=Sex=='F', col='red',
